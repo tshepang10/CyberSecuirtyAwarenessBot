@@ -12,7 +12,7 @@ namespace CyberSecurityAwarenessBot.UI
             Console.WriteLine("==============================================================");
             Console.ResetColor();
 
-            Console.ForegroundColor = ConsoleColor.Green;
+            Console.ForegroundColor = (ConsoleColor.Blue);
             Console.WriteLine(@" 
      ____  _                 _       _____                 
    / ___|| |__   ___   ___ | | __  | ____|_ __ ___  _ __  
