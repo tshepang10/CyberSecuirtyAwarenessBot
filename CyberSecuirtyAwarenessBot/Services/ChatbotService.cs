@@ -14,25 +14,57 @@ namespace CyberSecurityAwarenessBot.Services
 
         public void StartChat(UserProfile user)
         {
-            while (true)
-            {
-                ConsoleUI.WriteUserPrompt($"{user.Name}: ");
-                string? userInput = Console.ReadLine();
+            bool isRunning = true;
 
-                if (string.IsNullOrWhiteSpace(userInput))
+            while (isRunning)
+            {
+                string input = GetUserInput(user.Name);
+
+                if (!IsValidInput(input))
                 {
-                    ConsoleUI.WriteError("Invalid input. Please type a valid question.");
+                    ShowInputError();
                     continue;
                 }
 
-                string response = _responseService.GetResponse(userInput, user.Name);
-                ConsoleUI.WriteBotMessage(response);
+                DisplayResponse(input, user.Name);
 
-                if (userInput.Trim().Equals("exit", StringComparison.OrdinalIgnoreCase))
+                if (IsExitCommand(input))
                 {
-                    break;
+                    isRunning = false;
                 }
             }
+        }
+
+        // Handles user input
+        private string GetUserInput(string userName)
+        {
+            ConsoleUI.WriteUserPrompt($"{userName}: ");
+            return Console.ReadLine() ?? string.Empty;
+        }
+
+        // Validates input
+        private bool IsValidInput(string input)
+        {
+            return !string.IsNullOrWhiteSpace(input);
+        }
+
+        // Displays error message
+        private void ShowInputError()
+        {
+            ConsoleUI.WriteError("Invalid input. Please type a valid question.");
+        }
+
+        // Processes and displays chatbot response
+        private void DisplayResponse(string input, string userName)
+        {
+            string response = _responseService.GetResponse(input, userName);
+            ConsoleUI.WriteBotMessage(response);
+        }
+
+        // Checks if user wants to exit
+        private bool IsExitCommand(string input)
+        {
+            return input.Trim().Equals("exit", StringComparison.OrdinalIgnoreCase);
         }
     }
 }
