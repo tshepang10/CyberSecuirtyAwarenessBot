@@ -6,7 +6,7 @@ namespace CyberSecurityAwarenessBot.UI
     {
         public static void DisplayHeader()
         {
-            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("==============================================================");
             Console.WriteLine("   CYBERSECURITY AWARENESS BOT");
             Console.WriteLine("==============================================================");
